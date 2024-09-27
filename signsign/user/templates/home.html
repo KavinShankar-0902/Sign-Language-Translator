@@ -1,0 +1,154 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hearing Impairment Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #0ba84a, #05458e);
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #444;
+        }
+
+        form {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        form:hover {
+            transform: scale(1.05);
+        }
+
+        form input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+
+        .next-page-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            width: 250px;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            text-decoration: none;
+        }
+
+        .next-page-button:hover {
+            background-color: #0056b3;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 33%;
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .slideshow-container img {
+            width: 100%;
+            display: none;
+            border-radius: 8px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .slideshow-container h2 {
+            margin: 10px 0;
+            color: #444;
+        }
+        .title{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Hearing Impairment Assistant</h1>
+    <form action="{% url 'hello' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Start Listening</button>
+    </form>
+    <form action="{% url 'tex' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" id="text" name="text" placeholder="Enter text to convert">
+        <button type="submit">Convert</button>
+    </form>
+    <a class="next-page-button" href="{% url 'index' %}">Live Translator</a>
+    <div class="slideshow-container">
+        {% if txt %}
+            <h1>{{txt}}</h1>
+        {% endif %}
+        {% if images %}
+            {% for image in images %}
+                <img src="{% static image %}" alt="Letter Image">
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slideshow-container img');
+
+        function showSlides() {
+            slides.forEach((slide, index) => {
+                slide.style.display = 'none';
+                slide.classList.remove('active');
+            });
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = 'block';
+            slides[slideIndex - 1].classList.add('active');
+            setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+
+        if (slides.length > 0) {
+            showSlides(); // Initialize the slideshow
+        }
+    </script>
+</body>
+</html>

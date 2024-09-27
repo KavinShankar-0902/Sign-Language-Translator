@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #0ba84a, #05458e);
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #444;
+        }
+
+        img#video {
+            width: 640px;
+            height: 480px;
+            margin: 20px auto;
+            display: block;
+            border: 5px solid #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        a.back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 20px auto;
+        }
+
+        a.back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white;">Live Translator</h1>
+    <img id="video" src="{% url 'video_feed' %}" alt="Camera Feed">
+    <a class="back-button" href="{% url 'hello' %}">Back to Home</a>
+</body>
+</html>
